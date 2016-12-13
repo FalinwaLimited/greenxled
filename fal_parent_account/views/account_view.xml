@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_analytic_account_form_falparac" model="ir.ui.view">
+            <field name="name">analytic.analytic.account.form.falparac</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='account_type']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="parent_id" />
+                    <field name="complete_name" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_analytic_account_list_falparc" model="ir.ui.view">
+            <field name="name">account.analytic.account.list.falparc</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_list" />
+            <field name="arch" type="xml">
+                <field name="display_name" position="after">
+                    <field name="complete_name" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_analytic_account_tree_falparac" model="ir.ui.view">
+            <field name="name">account.analytic.account.tree</field>
+            <field name="model">account.analytic.account</field>
+            <field name="type">tree</field>
+            <field name="field_parent">child_complete_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Analytic account" toolbar="1">
+                    <field name="name" />
+                    <field name="complete_name"/>
+                    <field name="code"/>
+                    <field name="debit"/>
+                    <field name="credit"/>
+                    <field name="balance"/>
+                    <field name="currency_id" groups="base.group_multi_currency"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                    <field name="account_type"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_account_analytic_account_tree2" model="ir.actions.act_window">
+            <field name="name">Chart of Analytic Accounts</field>
+            <field name="res_model">account.analytic.account</field>
+            <field name="view_type">tree</field>
+            <field name="view_id" ref="view_account_analytic_account_tree_falparac"/>
+            <field name="domain">[('parent_id','=',False)]</field>
+            <field name="help" type="html">
+              <p>
+                Click to add a new analytic account.
+              </p><p>
+                The normal chart of accounts has a structure defined by the
+                legal requirement of the country. The analytic chart of
+                accounts structure should reflect your own business needs in
+                term of costs/revenues reporting.
+              </p><p>
+                They are usually structured by contracts, projects, products or
+                departements. Most of the Odoo operations (invoices,
+                timesheets, expenses, etc) generate analytic entries on the
+                related account.
+              </p>
+            </field>
+        </record>
+
+        <record id="view_account_form_falparac" model="ir.ui.view">
+            <field name="name">account.account.form.falparac</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="account_type" />
+                    <field name="parent_id" />
+                    <field name="complete_name" />                   
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_list_falparac" model="ir.ui.view">
+            <field name="name">account.account.list.falparac</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="complete_name" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_list_falparc" model="ir.ui.view">
+            <field name="name">account.account.list.falparc</field>
+            <field name="model">account.account</field>
+            <field name="type">tree</field>
+            <field name="field_parent">child_complete_ids</field>
+            <field name="arch" type="xml">
+                <tree string="Chart of accounts" toolbar="1" >
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="user_type_id"/>
+                    <field name="currency_id" groups="base.group_multi_currency"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="parent_id" invisible="1" />
+                    <field name="account_type" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="account.action_account_form" model="ir.actions.act_window">
+            <field name="name">Chart of Accounts</field>
+            <field name="res_model">account.account</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_account_list_falparc"/>
+            <field name="domain">[('parent_id','=',False)]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an account.
+              </p><p>
+                An account is part of a ledger allowing your company
+                to register all kinds of debit and credit transactions.
+                Companies present their annual accounts in two main parts: the
+                balance sheet and the income statement (profit and loss
+                account). The annual accounts of a company are required by law
+                to disclose a certain amount of information.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_account_form_falparc" model="ir.actions.act_window">
+            <field name="name">Accounts</field>
+            <field name="res_model">account.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="account.view_account_search"/>
+            <field name="view_id" ref="account.view_account_list"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add an account.
+              </p><p>
+                An account is part of a ledger allowing your company
+                to register all kinds of debit and credit transactions.
+                Companies present their annual accounts in two main parts: the
+                balance sheet and the income statement (profit and loss
+                account). The annual accounts of a company are required by law
+                to disclose a certain amount of information.
+              </p>
+            </field>
+        </record>
+        <menuitem action="action_account_form_falparc" id="menu_action_account_form_falparc" parent="account.account_account_menu" sequence="999"/>
+
+        <record id="invoice_supplier_form_falparc" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.falparc</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_analytic_id']" position="attributes">
+                    <attribute name="domain">[('account_type', '=', 'normal')]</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_form_falparc" model="ir.ui.view">
+            <field name="name">account.invoice.form.falparc</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_analytic_id']" position="attributes">
+                    <attribute name="domain">[('account_type', '=', 'normal')]</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_template_form_falparc" model="ir.ui.view">
+            <field name="name">account.account.template.form.falparc</field>
+            <field name="inherit_id" ref="account.view_account_template_form" />
+            <field name="model">account.account.template</field>
+            <field name="arch" type="xml">
+                <field name="chart_template_id" position="after">
+                    <field name="parent_id" />
+                    <field name="account_type" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_template_tree_falparc" model="ir.ui.view">
+            <field name="name">account.account.template.tree.falparc</field>
+            <field name="model">account.account.template</field>
+            <field name="inherit_id" ref="account.view_account_template_tree" />
+            <field name="arch" type="xml">
+                <field name="user_type_id" position="after">
+                    <field name="chart_template_id" />
+                    <field name="parent_id" />
+                    <field name="account_type" />
+                </field>
+            </field>
+        </record>
+
+        <act_window
+            id="action_account_items"
+            name="Journal Items"
+            context="{'search_default_account_id': [active_id], 'fiscalyear': context.get('fiscalyear')}"
+            res_model="account.move.line"
+            src_model="account.account"
+            key2="tree_but_open"/>
+
+        <menuitem action="account.action_account_template_form" id="menu_action_account_template_form_falparc" parent="account.account_account_menu" sequence="999" />
+        <menuitem action="account.action_account_tax_template_form" id="menu_action_account_tax_template_form_falparc" parent="account.account_account_menu" sequence="999" />
+
+    </data>
+</openerp>
