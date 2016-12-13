@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!--<report
+            auto="False"
+            id="hr_payroll.payslip_report"
+            model="hr.payslip"
+            name="fal_payslip"
+            rml="fal_l10n_cn_payroll/report/report_payslip.rml"
+            string="Employee PaySlip" 
+            header="False"
+            />-->
+       
+        <report
+           id="fal_hr_payroll"
+           model="hr.payslip"
+           string="Employee Payslip"
+           report_type="qweb-pdf"
+           name="fal_l10n_cn_payroll.fal_hr_payslip"
+           file="fal_l10n_cn_payroll.fal_hr_payslip"
+           header="False"
+        />        
+    </data>
+</openerp>

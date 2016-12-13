@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+      <!-- Translatable template -->
+      <template id="fal_hr_payslip" >
+          <t t-name="fal_l10n_cn_payroll.fal_hr_payslip">
+            <t t-call="report.html_container">
+                <t t-set="data_report_margin_top" t-value="12"/>
+                <t t-set="data_report_header_spacing" t-value="9"/>
+                <t t-set="data_report_dpi" t-value="110"/>
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <h2>Pay Slip</h2>
+                        <p t-field="o.name"/>
+
+                        <table class="table table-condensed table-bordered">
+                            <tr>
+                                <td><strong>Name</strong></td>
+                                <td><span t-field="o.employee_id"/></td>
+                                <td><strong>Designation</strong></td>
+                                <td><span t-field="o.employee_id.job_id"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Address</strong></td>
+                                <td colspan="3">
+                                    <div t-field="o.employee_id.address_home_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;fax&quot;], &quot;no_marker&quot;: true}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email</strong></td>
+                                <td><span t-field="o.employee_id.work_email"/></td>
+                                <td><strong>Identification No</strong></td>
+                                <td><span t-field="o.employee_id.job_id"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Reference</strong></td>
+                                <td><span t-field="o.number"/></td>
+                                <td><strong>Bank Account</strong></td>
+                                <td><span t-field="o.employee_id.bank_account_id"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Date From</strong></td>
+                                <td><span t-field="o.date_from"/></td>
+                                <td><strong>Date To</strong></td>
+                                <td><span t-field="o.date_to"/></td>
+                            </tr>
+                        </table>  
+
+                        <table class="table table-condensed" style="margin: 1px;">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Base Amount</th>
+                                    <th>Employee Rate(%)</th>
+                                    <th>Employee Total</th>
+                                    <th>Employer Rate(%)</th>
+                                    <th>Employer Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="p">
+                                    <t t-if="p.salary_rule_id.fal_highlight_on_payslip"><t t-set="td_h" t-value="True"/><t t-set="td_style" t-value="'background-color: lightblue;'"/></t>
+                                    <t t-if="not p.salary_rule_id.fal_highlight_on_payslip"><t t-set="td_h" t-value="False"/><t t-set="td_style" t-value="'background-color: white;'"/></t>
+                                    <td t-att-style="td_style"><span t-field="p.name" /></td>
+                                    <td t-att-style="td_style"><t t-if="p.amount and p.quantity and not td_h"><span t-field="p.quantity"/></t><t t-if="not p.amount or not p.quantity or td_h"><span>-</span></t></td>
+                                    <td t-att-style="td_style"><t t-if="p.amount and not td_h"><span t-field="p.amount"/></t><t t-if="not p.amount or not p.amount or td_h"><span>-</span></t></td>
+                                    <td t-att-style="td_style"><t t-if="p.amount and p.rate and not td_h"><span t-field="p.rate"/></t><t t-if="not p.amount or not p.rate or td_h"><span>-</span></t></td>
+                                    <td t-att-style="td_style"><t t-if="p.amount and p.total"><span t-field="p.total"/></t><t t-if="not p.amount or not p.total "><span>-</span></t></td>
+                                    <td t-att-style="td_style"><t t-if="p.amount and p.fal_rate_er and not td_h"><span t-field="p.fal_rate_er"/></t><t t-if="not p.amount or not p.fal_rate_er or td_h"><span>-</span></t></td>
+                                    <td t-att-style="td_style"><t t-if="p.amount and p.fal_total_er"><span t-field="p.fal_total_er"/></t><t t-if="not p.amount or not p.fal_total_er"><span>-</span></t></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="text-right"><strong>Authorized signature</strong></p>
+                    </div>
+                </t>
+            </t>
+      </t>
+    </template>
+  </data>
+</openerp>

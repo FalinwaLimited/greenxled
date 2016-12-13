@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="hr_contract_view_form_falpayrol" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.falpayroll</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <field name="wage" position="after">
+                        <field name="fal_fixed_allowance" />
+                        <field name="fal_house_allowance" />
+                        <field name="fal_haf_base" />
+                        <field name="fal_si_base" />
+                    </field>
+                </data>
+            </field>
+        </record>         
+            
+        <record id="view_hr_payslip_form_fal_payroll" model="ir.ui.view">
+            <field name="name">hr.payslip.form.fal.payroll</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//button[@name='cancel_sheet']" position="attributes">
+                        <attribute name="states">draft,hr_check,confirm,verify,done</attribute>
+                        <attribute name="groups">account.group_account_manager</attribute>
+                    </xpath>
+                    <button name="refund_sheet" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </button>
+                    <xpath expr="//field[@name='line_ids']/tree" position="attributes">
+                        <attribute name="colors">blue:amount == 0</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='line_ids']/tree/field[@name='code']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='line_ids']/tree/field[@name='category_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='line_ids']/tree/field[@name='rate']" position="replace">
+                    </xpath>
+                    <xpath expr="//field[@name='line_ids']/tree/field[@name='amount']" position="after">
+                        <field name="rate" string="Employee Rate (%%)"/>
+                    </xpath>
+                    <xpath expr="//field[@name='line_ids']/tree/field[@name='total']" position="attributes">
+                        <attribute name="string">Employee Total</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='line_ids']/tree/field[@name='total']" position="after">
+                        <field name="fal_rate_er" />
+                        <field name="fal_total_er" />
+                    </xpath>
+                    <xpath expr="//field[@name='details_by_salary_rule_category']/tree/field[@name='total']" position="replace">
+                        <field name="total" string="Employee Total" />
+                        <field name="fal_total_er" />
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_form_fal_payroll" model="ir.ui.view">
+            <field name="name">hr.salary.rule.form.fal.payroll</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group/separator[1]" position="before">
+                        <separator colspan="4" string="Insurances"/>
+                        <field name="fal_is_insurance" /><newline/>
+                        <field name="fal_rule_child_employee_id" attrs="{'invisible': [('fal_is_insurance','=',False)], 'required': [('fal_is_insurance','=',True)]}" /><newline/>
+                        <field name="fal_rule_child_employeer_id" attrs="{'invisible': [('fal_is_insurance','=',False)], 'required': [('fal_is_insurance','=',True)]}" /><newline/>
+                    </xpath>
+                    <field name="appears_on_payslip" position="after">
+                        <field name="fal_highlight_on_payslip" />
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="hr_contribution_register_tree_fal_payroll" model="ir.ui.view">
+            <field name="name">hr.contribution.register.tree.fal.payroll</field>
+            <field name="model">hr.contribution.register</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contribution_register_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="partner_id"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+        <record id="hr_contribution_register_filter_fal_payroll" model="ir.ui.view">
+            <field name="name">hr.contribution.register.search.fal.payroll</field>
+            <field name="model">hr.contribution.register</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contribution_register_filter"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="partner_id"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+        <record id="hr_contribution_register_form_fal_payroll" model="ir.ui.view">
+            <field name="name">hr.contribution.register.form.fal.payroll</field>
+            <field name="model">hr.contribution.register</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contribution_register_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="partner_id"/>
+                    </field>
+                </data>
+            </field>
+        </record>       
+    </data>
+</openerp>
+

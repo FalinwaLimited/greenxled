@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--
+    Copyright (C) 20014-Now hans.yonathan@falinwa.com   <general chart data>
+-->
+    <data noupdate="False">
+        
+        <record model="account.account.type" id="fal_data_account_type_dont_show">
+          <field name="name">Dont show on report</field>
+          <field name="type">other</field>
+          <field name="include_initial_balance" eval="True"/>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_liquidity">
+          <field name="name">Bank and Cash</field>
+        </record>        
+        
+        <record model="account.account.tag" id="fal_data_account_tag_receivable_plus">
+          <field name="name">Receivable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_receivable_minus">
+          <field name="name">Receivable Minus</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_notes_receivable">
+          <field name="name">Notes Receivable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_interest_receivable">
+          <field name="name">Interest Receivable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_prepayments">
+          <field name="name">Prepayments</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_dividend_receivable">
+          <field name="name">Dividend Receivable</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_other_receivable">
+          <field name="name">Other Receivable</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_trading_financial_assets">
+          <field name="name">Trading financial assets</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_inventory">
+          <field name="name">Inventory</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_inventory_minus">
+          <field name="name">Inventory Minus</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_other_current_assets">
+          <field name="name">Other Current Assets</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_non_current_assets">
+          <field name="name">Non Current Assets</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_non_current_assets_one_year">
+          <field name="name">Non-Current Assets in one year</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_available_sale_financial_assets">
+          <field name="name">Available for sale financial assets</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_available_sale_financial_assets_minus">
+          <field name="name">Available for sale financial assets Minus</field>
+        </record>        
+        
+        <record model="account.account.tag" id="fal_data_account_tag_held_maturity_investments">
+          <field name="name">Held to maturity investments</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_held_maturity_investments_minus">
+          <field name="name">Held to maturity investments Minus</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_long_term_receivable">
+          <field name="name">Long-term Receivable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_long_term_receivable_minus">
+          <field name="name">Long-term Receivable Minus</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_long_term_equity_investments">
+          <field name="name">Long-term equity investments</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_long_term_equity_investments_minus">
+          <field name="name">Long-term equity investments Minus</field>
+        </record>        
+        
+        <record model="account.account.tag" id="fal_data_account_tag_tangible_assets">
+          <field name="name">Tangible assets</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_tangible_assets_minus">
+          <field name="name">Tangible assets Minus</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_construction_work_process">
+          <field name="name">Construction in work in process</field>
+        </record>        
+
+        <record model="account.account.tag" id="fal_data_account_tag_construction_work_process_minus">
+          <field name="name">Construction in work in process Minus</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_project_material">
+          <field name="name">Project material</field>
+        </record>         
+
+        <record model="account.account.tag" id="fal_data_account_tag_disposal_fix_assets">
+          <field name="name">Disposal of Fixed Assets</field>
+        </record>  
+        
+        <record model="account.account.tag" id="fal_data_account_tag_production_biological_assets">
+          <field name="name">Production of Biological Assets</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_oil_gas_assets">
+          <field name="name">Oil and gas Assets</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_intangible_assets">
+          <field name="name">Intangible Assets</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_intangible_assets_minus">
+          <field name="name">Intangible Assets Minus</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_development_expenditure">
+          <field name="name">Development expenditure</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_development_expenditure_minus">
+          <field name="name">Development expenditure Minus</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_goodwill">
+          <field name="name">Good will</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_deffered_assets">
+          <field name="name">Deffered Assets</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_deffered_income_tax_assets">
+          <field name="name">Deffered Income Tax Assets</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_short_term_loan">
+          <field name="name">Short-term Loan</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_trading_financial_liabilities">
+          <field name="name">Trading financial liabilities</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_payable">
+          <field name="name">Payable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_payable_minus">
+          <field name="name">Payable Minus</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_notes_payable">
+          <field name="name">Notes payable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_customer_deposit">
+          <field name="name">Customer Deposit</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_staff_payable">
+          <field name="name">Staff Payable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_tax_payable">
+          <field name="name">Tax Payable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_interest_payable">
+          <field name="name">Interest Payable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_dividend_payable">
+          <field name="name">Dividend Payable</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_other_payable">
+          <field name="name">Other Payable</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_current_liabilities">
+          <field name="name">Current Liabilities</field>
+        </record>
+                
+        <record model="account.account.tag" id="fal_data_account_tag_non_current_liabilities">
+          <field name="name">Non-Current Liabilities in one year</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_longterm_loan">
+          <field name="name">Long-term Loan</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_bonds_payable">
+          <field name="name">Bonds Payable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_longterm_account_payable">
+          <field name="name">Long term Accounts Payable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_longterm_account_payable_minus">
+          <field name="name">Long term Accounts Payable Minus</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_special_accounts_payable">
+          <field name="name">Special Accounts Payable</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_accrued_liabilities">
+          <field name="name">Accrued liabilities</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_deffered_taxation_credit">
+          <field name="name">Deffered taxation credit</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_other_non_current_liabilities">
+          <field name="name">Other Non-Current Liabilities</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_share_capital">
+          <field name="name">Share Capital</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_capital_reserves">
+          <field name="name">Capital Reserves</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_less_treasury_stock">
+          <field name="name">Less: Treasury Stock</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_surplus_reserves">
+          <field name="name">Surplus Reserves</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_undivided_profits">
+          <field name="name">Undivided Profits</field>
+        </record>
+        
+        
+        <record model="account.account.tag" id="fal_data_account_tag_operation_cost">
+          <field name="name">Operation Costs</field>
+        </record>        
+
+        <record model="account.account.tag" id="fal_data_account_tag_operation_tax_addons">
+          <field name="name">Operation Tax and add-ons</field>
+        </record> 
+
+        <record model="account.account.tag" id="fal_data_account_tag_sales_expenses">
+          <field name="name">Sales Expenses</field>
+        </record> 
+
+        <record model="account.account.tag" id="fal_data_account_tag_overhead_expenses">
+          <field name="name">Overhead Expenses</field>
+        </record> 
+
+        <record model="account.account.tag" id="fal_data_account_tag_financial_expenses">
+          <field name="name">Financial Expenses</field>
+        </record> 
+
+        <record model="account.account.tag" id="fal_data_account_tag_devaluation_lost_assets">
+          <field name="name">Devaluation Lost of Assets</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_net_changes_in_fair_value">
+          <field name="name">Net changes in fair value(loss of "-")</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_net_investment_income">
+          <field name="name">Net investment income(loss of "-")</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_prior_year_income_adjustment">
+          <field name="name">Prior year income adjustment</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_revenue">
+          <field name="name">Income</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_non_operation_income">
+          <field name="name">Non-operation income</field>
+        </record>
+        
+        <record model="account.account.tag" id="fal_data_account_tag_non_operation_expenses">
+          <field name="name">Non-operation expenses</field>
+        </record>
+
+        <record model="account.account.tag" id="fal_data_account_tag_profit_tax_expenses">
+          <field name="name">Profit tax expenses</field>
+        </record>
+        
+    </data>
+</odoo>
