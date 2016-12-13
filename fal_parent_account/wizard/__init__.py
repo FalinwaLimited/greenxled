@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-import account_analytic_chart
+#import account_analytic_chart

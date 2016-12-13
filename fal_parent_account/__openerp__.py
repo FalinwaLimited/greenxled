@@ -11,6 +11,7 @@
         ],
     'init_xml': [],
     'update_xml': [
+        # 'wizard/account_analytic_chart_view.xml',
         'views/account_view.xml',
         'views/project_view.xml',
     ],
