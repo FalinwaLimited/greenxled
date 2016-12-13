@@ -7,9 +7,9 @@
             <field name="model">account.analytic.account</field>
             <field name="inherit_id" ref="analytic.view_account_analytic_account_form" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='account_type']" position="attributes">
+                <!-- <xpath expr="//field[@name='account_type']" position="attributes">
                     <attribute name="invisible">0</attribute>
-                </xpath>
+                </xpath> -->
                 <xpath expr="//field[@name='code']" position="after">
                     <field name="parent_id" />
                     <field name="complete_name" />
