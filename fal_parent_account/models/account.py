@@ -1,59 +1,60 @@
 # -*- coding: utf-8 -*-
 from openerp import api, fields, models, _
 
+
 class account_account(models.Model):
     _inherit = 'account.account'
 
-    def _check_recursion(self, cr, uid, ids, context=None):
-        for id in ids:
+    def _check_recursion(self):
+        for account in self:
             visited_branch = set()
             visited_node = set()
-            res = self._check_cycle(cr, uid, id, visited_branch, visited_node, context=context)
+            res = self._check_cycle(visited_branch, visited_node)
             if not res:
                 return False
 
         return True
 
-    def _check_cycle(self, cr, uid, id, visited_branch, visited_node, context=None):
-        if id in visited_branch: #Cycle
+    def _check_cycle(self, visited_branch, visited_node):
+        if id in visited_branch:  # Cycle
             return False
 
-        if id in visited_node: #Already tested don't work one more time for nothing
+        if id in visited_node:  # Already tested don't work one more time for nothing
             return True
 
         visited_branch.add(id)
         visited_node.add(id)
 
-        #visit child using DFS
-        account = self.browse(cr, uid, id, context=context)
+        # visit child using DFS
+        account = self
         for child in account.child_ids:
-            res = self._check_cycle(cr, uid, child.id, visited_branch, visited_node, context=context)
+            res = child._check_cycle(visited_branch, visited_node)
             if not res:
                 return False
 
         visited_branch.remove(id)
         return True
-        
+
     @api.one
     @api.depends('name', 'parent_id', 'parent_id.name', 'parent_id.complete_name')
     def _compute_get_full_name(self, name=None, args=None):
         self.complete_name = self._get_one_full_name(self)
         cc_ac = []
-        
+
         def get_ac(ac, cc_ac):
-            c_ac = self.search([('parent_id','=',ac.id)])
+            c_ac = self.search([('parent_id', '=', ac.id)])
             cc_ac.extend(c_ac)
             if c_ac:
                 for acc in c_ac:
                     get_ac(acc, cc_ac)
             else:
                 return False
-                
+
         get_ac(self, cc_ac)
         for ac in cc_ac:
             name = ac._get_one_full_name(ac)
             self.env.cr.execute("update account_account set complete_name= %s where id= %s", (name, ac.id))
-            
+
     def _get_one_full_name(self, elmt, level=99):
         if elmt.parent_id:
             parent_path = self._get_one_full_name(elmt.parent_id, level-1) + " / "
@@ -74,72 +75,73 @@ class account_account(models.Model):
     child_ids = fields.One2many('account.account', 'parent_id', 'Child Accounts', copy=False)
     child_complete_ids = fields.Many2many('account.account', compute=_compute_child_compute, string="Account Hierarchy")
     #end here
-    
+
     _constraints = [(_check_recursion, _('Error! You cannot create recursive hierarchy'), ['parent_id']),]
 
     @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):        
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
         args = args or []
         if ['account_type', '=', 'view'] not in args:
             args.append(('account_type','!=','view'))
         return super(account_account, self).name_search(name, args, operator)
-                
+
 #end of account_account()
+
 
 class account_analytic_account(models.Model):
     _inherit = 'account.analytic.account'
     _rec_name = 'complete_name'
-    
-    def _check_recursion(self, cr, uid, ids, context=None):
-        for id in ids:
+
+    def _check_recursion(self):
+        for account in self:
             visited_branch = set()
             visited_node = set()
-            res = self._check_cycle(cr, uid, id, visited_branch, visited_node, context=context)
+            res = account._check_cycle(visited_branch, visited_node)
             if not res:
                 return False
 
         return True
 
-    def _check_cycle(self, cr, uid, id, visited_branch, visited_node, context=None):
-        if id in visited_branch: #Cycle
+    def _check_cycle(self, visited_branch, visited_node, context=None):
+        if id in visited_branch:  # Cycle
             return False
 
-        if id in visited_node: #Already tested don't work one more time for nothing
+        if id in visited_node:  # Already tested don't work one more time for nothing
             return True
 
         visited_branch.add(id)
         visited_node.add(id)
 
-        #visit child using DFS
-        account_analytic_account = self.browse(cr, uid, id, context=context)
+        # visit child using DFS
+        account_analytic_account = self
         for child in account_analytic_account.child_ids:
-            res = self._check_cycle(cr, uid, child.id, visited_branch, visited_node, context=context)
+            res = child._check_cycle(visited_branch, visited_node)
             if not res:
                 return False
 
         visited_branch.remove(id)
         return True
-        
+
     @api.one
     @api.depends('name', 'parent_id', 'parent_id.name', 'parent_id.complete_name')
     def _compute_get_full_name(self, name=None, args=None):
         self.complete_name = self._get_one_full_name(self)
         cc_ac = []
-        
+
         def get_ac(ac, cc_ac):
-            c_ac = self.search([('parent_id','=',ac.id)])
+            c_ac = self.search([('parent_id', '=', ac.id)])
             cc_ac.extend(c_ac)
             if c_ac:
                 for acc in c_ac:
                     get_ac(acc, cc_ac)
             else:
                 return False
-                
+
         get_ac(self, cc_ac)
         for ac in cc_ac:
             name = ac._get_one_full_name(ac)
             self.env.cr.execute("update account_analytic_account set complete_name= %s where id= %s", (name, ac.id))
-            
+
     def _get_one_full_name(self, elmt, level=99):
         if elmt.parent_id:
             parent_path = self._get_one_full_name(elmt.parent_id, level-1) + " / "
@@ -162,30 +164,30 @@ class account_analytic_account(models.Model):
     child_ids = fields.One2many('account.analytic.account', 'parent_id', 'Child Accounts', copy=False)
     child_complete_ids = fields.Many2many('account.analytic.account', compute=_compute_child_compute, string="Account Hierarchy")
     #end here
-    
+
     _constraints = [(_check_recursion, _('Error! You cannot create recursive hierarchy'), ['parent_id']),]
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
         args = args or []
-        if ['account_type', '=','view'] not in args:            
+        if ['account_type', '=','view'] not in args:
             args.append(('account_type','!=','view'))
-        
+
         return super(account_analytic_account, self).name_search(name, args, operator)
-        
+
 #end of account_analytic_account()
 
 class AccountAccountTemplate(models.Model):
     _inherit = "account.account.template"
-    
+
     account_type = fields.Selection([('view','Account View'), ('normal','Normal Account')], 'Type of Account', required=True, default='normal')
     parent_id = fields.Many2one('account.account.template', 'Parent Account', ondelete='restrict')
-    
+
 #end of AccountAccountTemplate()
 
 class AccountChartTemplate(models.Model):
     _inherit = "account.chart.template"
-    
+
     @api.multi
     def generate_account(self, tax_template_ref, acc_template_ref, code_digits, company):
         self.ensure_one()
@@ -200,5 +202,5 @@ class AccountChartTemplate(models.Model):
                 'account_type': account_template_id.account_type,
             })
         return res
-        
+
 #end of AccountAccountTemplate()

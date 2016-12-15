@@ -16,15 +16,15 @@
                     </field>
                 </data>
             </field>
-        </record>         
-            
+        </record>
+
         <record id="view_hr_payslip_form_fal_payroll" model="ir.ui.view">
             <field name="name">hr.payslip.form.fal.payroll</field>
             <field name="model">hr.payslip</field>
             <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form" />
             <field name="arch" type="xml">
                 <data>
-                    <xpath expr="//button[@name='cancel_sheet']" position="attributes">
+                    <xpath expr="//button[@name='action_payslip_cancel']" position="attributes">
                         <attribute name="states">draft,hr_check,confirm,verify,done</attribute>
                         <attribute name="groups">account.group_account_manager</attribute>
                     </xpath>

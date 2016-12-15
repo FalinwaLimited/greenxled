@@ -2,7 +2,7 @@
 from openerp import api, fields, models
 
 class account_analytic_chart(models.TransientModel):
-    _inherit = 'account.analytic.chart'    
+    _inherit = 'account.analytic.chart'
 
     @api.v7
     def analytic_account_chart_open_window(self, cr, uid, ids, context=None):
