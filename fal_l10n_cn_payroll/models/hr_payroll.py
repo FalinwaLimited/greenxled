@@ -123,8 +123,6 @@ class hr_payslip(models.Model):
                 if rule.fal_is_insurance:
                     for result in results:
                         if result['code'] == rule.code:
-                            print 'HOHOHOHHOH'
-                            print rule.name
                             amount, qty, rate = rule.fal_rule_child_employee_id.compute_rule(localdict)
                             if not amount:
                                 rate = 0.00
